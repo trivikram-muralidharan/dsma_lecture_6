@@ -378,29 +378,29 @@ def run_pipeline(wandb_project: str = WANDB_PROJECT):
     # the total number of API calls.  Default is 100 samples (~$0.002).
     # ══════════════════════════════════════════════════════════════════════════
 
-    _print_header("STEP 8 — Era 5: Foundation Models (LLM — zero-shot & few-shot)")
+    # _print_header("STEP 8 — Era 5: Foundation Models (LLM — zero-shot & few-shot)")
 
-    # LLMs understand natural language — use minimally cleaned text, not the
-    # lemmatized/stopword-removed version sent to statistical and LSTM models.
-    llm_idx = rng.choice(len(X_test_bert), LLM_EVAL_SIZE, replace=False)
-    X_llm   = X_test_bert.iloc[llm_idx].tolist()
-    y_llm   = y_test.iloc[llm_idx].tolist()
+    # # LLMs understand natural language — use minimally cleaned text, not the
+    # # lemmatized/stopword-removed version sent to statistical and LSTM models.
+    # llm_idx = rng.choice(len(X_test_bert), LLM_EVAL_SIZE, replace=False)
+    # X_llm   = X_test_bert.iloc[llm_idx].tolist()
+    # y_llm   = y_test.iloc[llm_idx].tolist()
 
-    # Few-shot examples: 2 positive + 1 negative from training set
-    pos_texts = X_train_bert[y_train == 1].iloc[:5].tolist()
-    neg_texts = X_train_bert[y_train == 0].iloc[:5].tolist()
-    few_shot_examples = (
-        [{"text": t, "label": 1} for t in pos_texts] +
-        [{"text": t, "label": 0} for t in neg_texts]
-    )
+    # # Few-shot examples: 2 positive + 1 negative from training set
+    # pos_texts = X_train_bert[y_train == 1].iloc[:5].tolist()
+    # neg_texts = X_train_bert[y_train == 0].iloc[:5].tolist()
+    # few_shot_examples = (
+    #     [{"text": t, "label": 1} for t in pos_texts] +
+    #     [{"text": t, "label": 0} for t in neg_texts]
+    # )
 
-    print(f"  Classifying {LLM_EVAL_SIZE} samples  (zero-shot) ...")
-    y_pred_zs = classify_batch(X_llm, mode="zero_shot")
-    era_results.append(_eval(y_llm, y_pred_zs, "LLM — zero-shot"))
+    # print(f"  Classifying {LLM_EVAL_SIZE} samples  (zero-shot) ...")
+    # y_pred_zs = classify_batch(X_llm, mode="zero_shot")
+    # era_results.append(_eval(y_llm, y_pred_zs, "LLM — zero-shot"))
 
-    print(f"  Classifying {LLM_EVAL_SIZE} samples  (few-shot, 3 examples) ...")
-    y_pred_fs = classify_batch(X_llm, mode="few_shot", examples=few_shot_examples)
-    era_results.append(_eval(y_llm, y_pred_fs, "LLM — few-shot (3 examples)"))
+    # print(f"  Classifying {LLM_EVAL_SIZE} samples  (few-shot, 3 examples) ...")
+    # y_pred_fs = classify_batch(X_llm, mode="few_shot", examples=few_shot_examples)
+    # era_results.append(_eval(y_llm, y_pred_fs, "LLM — few-shot (3 examples)"))
 
     # ── Step 9: Era Comparison Table ────────────────────────────────────────────
     _print_header("STEP 9 — Era Comparison: The NLP Evolution")
